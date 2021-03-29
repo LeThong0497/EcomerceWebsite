@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EcomerceWebsite_Backend.IdentityServer;
 
 namespace EcomerceWebsite_Backend
 {
@@ -34,6 +35,21 @@ namespace EcomerceWebsite_Backend
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.EmitStaticAudienceClaim = true;
+            })
+               .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+               .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+               .AddInMemoryClients(IdentityServerConfig.Clients)
+               .AddAspNetIdentity<IdentityUser>()
+               .AddDeveloperSigningCredential(); 
+
             services.AddControllersWithViews();
         }
 
@@ -56,7 +72,7 @@ namespace EcomerceWebsite_Backend
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
