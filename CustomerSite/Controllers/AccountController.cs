@@ -12,12 +12,12 @@ namespace CustomerSite.Controllers
     {
         public IActionResult SignIn()
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "oidc");
+            return Challenge(new AuthenticationProperties { RedirectUri = "/" },"oidc");
         }
 
-        public IActionResult SignOut()
+        public new IActionResult SignOut()
         {
-            return SignOut(new AuthenticationProperties { RedirectUri = "/" }, "cookies", "oidc");
+            return SignOut(new AuthenticationProperties { RedirectUri = "/" }, "Cookies", "oidc");
         }
 
         [Authorize]
