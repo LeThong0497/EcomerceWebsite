@@ -1,14 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CustomerSite
 {
@@ -26,32 +21,33 @@ namespace CustomerSite
         {
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = "cookies";
+                options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-                .AddCookie("cookies")
+                .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
-                 {
-                     options.Authority = "https://localhost:44341";
-                     options.RequireHttpsMetadata = false;
-                     options.GetClaimsFromUserInfoEndpoint = true;
+                {
+                    options.Authority = "https://localhost:44336";
+                    options.RequireHttpsMetadata = false;
+                    options.GetClaimsFromUserInfoEndpoint = true;
 
-                     options.ClientId = "mvc";
-                     options.ClientSecret = "secret";
-                     options.ResponseType = "code";
+                    options.ClientId = "mvc";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
 
-                     options.SaveTokens = true;
+                    options.SaveTokens = true;
 
-                     options.Scope.Add("openid");
-                     options.Scope.Add("profile");
-                     options.Scope.Add("ecomerce.api");
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("ecommerce.customer.api");
 
-                     options.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         NameClaimType = "name",
-                         RoleClaimType = "role"
-                     };
-                 });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
+                });
+
             services.AddControllersWithViews();
         }
 
@@ -74,7 +70,6 @@ namespace CustomerSite
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
