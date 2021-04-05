@@ -11,36 +11,35 @@ namespace EcomerceWebsite_Backend.Models
         public int ProductID { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(70)]
         public string Name { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public float Price { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
-        [StringLength(40)]
+        [StringLength(80)]
         public string CPU { get; set; }
 
-        [StringLength(40)]
+        [StringLength(80)]
         public string Screen { get; set; }
 
-        [StringLength(30)]
+        [StringLength(80)]
         public string HardDrive { get; set; }
 
-        [StringLength(30)]
+        [StringLength(80)]
         public string Card { get; set; }
 
-        [StringLength(30)]
+        [StringLength(50)]
         public string Size { get; set; }
 
         [StringLength(80)]
         public string GateWay { get; set; }
 
-        public int CommentID { get; set; }
-
         [Required]
+        public string Image { get; set; }
         public int BrandID { get; set; }
 
         public virtual Brand Brand { get; set; }
