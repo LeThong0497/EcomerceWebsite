@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcomerceWebsite_Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210402094757_InitialDB")]
-    partial class InitialDB
+    [Migration("20210405071815_InitialDB5")]
+    partial class InitialDB5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,10 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(60)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(60)");
 
                     b.HasKey("BrandID");
 
@@ -89,42 +90,39 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CPU")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Card")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("GateWay")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("HardDrive")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Screen")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Size")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("ProductID");
 

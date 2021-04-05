@@ -88,42 +88,43 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CPU")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Card")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("GateWay")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("HardDrive")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Screen")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Size")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("ProductID");
 
