@@ -23,4 +23,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShareViewModel\ShareViewModel.csproj" />
+  </ItemGroup>
 </Project>
