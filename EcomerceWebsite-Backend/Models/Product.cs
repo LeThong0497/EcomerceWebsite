@@ -15,7 +15,7 @@ namespace EcomerceWebsite_Backend.Models
         public string Name { get; set; }
 
         [Required]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -38,11 +38,10 @@ namespace EcomerceWebsite_Backend.Models
         [StringLength(80)]
         public string GateWay { get; set; }
 
-        [Required]
-        public string Image { get; set; }
         public int BrandID { get; set; }
 
         public virtual Brand Brand { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }
