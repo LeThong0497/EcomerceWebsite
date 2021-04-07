@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcomerceWebsite_Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210405071815_InitialDB5")]
-    partial class InitialDB5
+    [Migration("20210406071309_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,26 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("EcomerceWebsite_Backend.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("EcomerceWebsite_Backend.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
@@ -110,8 +130,8 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -342,6 +362,17 @@ namespace EcomerceWebsite_Backend.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("EcomerceWebsite_Backend.Models.Image", b =>
+                {
+                    b.HasOne("EcomerceWebsite_Backend.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EcomerceWebsite_Backend.Models.Product", b =>
                 {
                     b.HasOne("EcomerceWebsite_Backend.Models.Brand", "Brand")
@@ -412,6 +443,8 @@ namespace EcomerceWebsite_Backend.Data.Migrations
             modelBuilder.Entity("EcomerceWebsite_Backend.Models.Product", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }
