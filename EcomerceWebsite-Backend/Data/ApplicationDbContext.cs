@@ -18,7 +18,6 @@ namespace EcomerceWebsite_Backend.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
-      
-
+        public DbSet<Image> Images { get; set; }
     }
 }
