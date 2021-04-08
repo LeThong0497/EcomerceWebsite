@@ -100,5 +100,29 @@ namespace EcomerceWebsite_Backend.Controllers
 
             return prodVMs;
         }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ProductVm>> GetProduct (int id)
+        {
+            var product =await _applicationDbContext.Products.FindAsync(id);
+
+            ProductVm productVm = new ProductVm
+            {
+                ProductId = product.ProductID,
+                Name = product.Name,
+                Price = string.Format("{0:#,##}", product.Price),
+                CPU = product.CPU,
+                Quantity = product.Quantity,
+                Screen = product.Screen,
+                HardDrive = product.HardDrive,
+                Card = product.Card,
+                GateWay = product.GateWay,
+                Size = product.Size,
+                Image = product.Images.Select(x => x.ImageName).ToList()
+            };
+
+            return productVm;
+        }
     }
 }
