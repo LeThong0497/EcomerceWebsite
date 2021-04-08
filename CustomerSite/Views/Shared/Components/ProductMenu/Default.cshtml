@@ -1,12 +1,12 @@
 ﻿@model IList<ShareViewModel.ProductVm>
 
-
 @foreach (var product in Model)
 {
-    <div class="card product-item col-md-4">        
-            <img class="card-img" src="https://localhost:44336/images/@product.Image[0]" />
-            <p class="card-text">Laptop @product.Name (@product.Screen/@product.CPU/@product.HardDrive/@product.Card)</p>
-            <h5 style="color:red">@product.Price <strong>VNĐ</strong></h5>           
-    </div>   
+    <div class="card product-item col-md-3">
+        <img class="card-img" src="https://localhost:44336/images/@product.Image[0]" />
+        <p class="card-text">Laptop @product.Name (@product.Screen/@product.CPU/@product.HardDrive/@product.Card)</p>
+        <p>Quantity :<strong style="color:blue"> @product.Quantity</strong></p>
+        <h5 style="color:red">@product.Price <strong>VNĐ</strong></h5>
+    </div>
 }
 
