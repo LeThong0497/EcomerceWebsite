@@ -27,7 +27,7 @@ namespace EcomerceWebsite_Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts()
         {
-            var products = await _applicationDbContext.Products.Include("Images").Select(x =>
+            var products = await _applicationDbContext.Products.Include("Images").Include("Comments").Select(x =>
                 new
                 {
                     x.ProductID,
@@ -40,7 +40,9 @@ namespace EcomerceWebsite_Backend.Controllers
                     x.Card,
                     x.GateWay,
                     x.Size,
-                    x.Images
+                    x.BrandID,
+                    x.Images,
+                    x.Comments
                 }).ToListAsync();
 
             var prodVMs = products.Select(x =>
@@ -48,7 +50,7 @@ namespace EcomerceWebsite_Backend.Controllers
                             {
                                 ProductId = x.ProductID,
                                 Name = x.Name,
-                                Price = string.Format("{0:#,##}", x.Price),
+                                Price = x.Price,
                                 CPU =x.CPU,
                                 Quantity=x.Quantity,
                                 Screen=x.Screen,
@@ -56,7 +58,9 @@ namespace EcomerceWebsite_Backend.Controllers
                                 Card=x.Card,
                                 GateWay=x.GateWay,
                                 Size=x.Size,
-                                Image = x.Images.Select(x => x.ImageName).ToList()
+                                BrandID=x.BrandID,
+                                Images = x.Images.Select(x => x.ImageName).ToList(),
+                                Commentings = x.Comments.Select(x=>new CommentingVm {star=x.Star}).ToList()
                             }).ToList();
 
             return prodVMs;
@@ -66,7 +70,7 @@ namespace EcomerceWebsite_Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProductsByBrand(int id)
         {
-            var products = await _applicationDbContext.Products.Where(x => x.BrandID==id).Include("Images").Select(x =>
+            var products = await _applicationDbContext.Products.Where(x => x.BrandID==id).Include("Images").Include("Comments").Select(x =>
                 new
                 {
                     x.ProductID,
@@ -79,7 +83,9 @@ namespace EcomerceWebsite_Backend.Controllers
                     x.Card,
                     x.GateWay,
                     x.Size,
-                    x.Images
+                    x.BrandID,
+                    x.Images,
+                    x.Comments
                 }).ToListAsync();
 
             var prodVMs = products.Select(x =>
@@ -87,7 +93,7 @@ namespace EcomerceWebsite_Backend.Controllers
                             {
                                 ProductId = x.ProductID,
                                 Name = x.Name,
-                                Price =string.Format("{0:#,##}", x.Price),
+                                Price =x.Price,
                                 CPU = x.CPU,
                                 Quantity = x.Quantity,
                                 Screen = x.Screen,
@@ -95,34 +101,50 @@ namespace EcomerceWebsite_Backend.Controllers
                                 Card = x.Card,
                                 GateWay = x.GateWay,
                                 Size = x.Size,
-                                Image = x.Images.Select(x => x.ImageName).ToList()
+                                BrandID=x.BrandID,
+                                Images = x.Images.Select(x => x.ImageName).ToList(),
+                                Commentings = x.Comments.Select(x => new CommentingVm {  star = x.Star,
+                                                                                         date=x.Date,
+                                                                                         content=x.Content,
+                                                                                         userName=x.UserName }).ToList()
                             }).ToList();
 
             return prodVMs;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Product/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct (int id)
         {
-            var product =await _applicationDbContext.Products.FindAsync(id);
-
-            ProductVm productVm = new ProductVm
+            var product = await _applicationDbContext.Products.Include("Images").Include("Comments").Where(x => x.ProductID == id).FirstAsync();
+                  
+            if(product==null)
             {
-                ProductId = product.ProductID,
-                Name = product.Name,
-                Price = string.Format("{0:#,##}", product.Price),
-                CPU = product.CPU,
-                Quantity = product.Quantity,
-                Screen = product.Screen,
-                HardDrive = product.HardDrive,
-                Card = product.Card,
-                GateWay = product.GateWay,
-                Size = product.Size,
-                Image = product.Images.Select(x => x.ImageName).ToList()
-            };
+                return NotFound();
+            }
 
-            return productVm;
+            var prodVM = new ProductVm();
+
+            prodVM.ProductId = product.ProductID;
+            prodVM.Name = product.Name;
+            prodVM.Price = product.Price;
+            prodVM.CPU = product.CPU;
+            prodVM.Quantity = product.Quantity;
+            prodVM.Screen = product.Screen;
+            prodVM.HardDrive = product.HardDrive;
+            prodVM.Card = product.Card;
+            prodVM.GateWay = product.GateWay;
+            prodVM.Size = product.Size;
+            prodVM.BrandID = product.BrandID;
+            prodVM.Images = product.Images.Select(x => x.ImageName).ToList();
+            prodVM.Commentings = product.Comments.Select(x => new CommentingVm {
+                                                                                star = x.Star,
+                                                                                date = x.Date,
+                                                                                content = x.Content,
+                                                                                userName = x.UserName
+                                                                            }).ToList();
+
+            return prodVM;
         }
     }
 }
