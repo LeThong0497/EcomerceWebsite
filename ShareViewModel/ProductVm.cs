@@ -7,7 +7,7 @@ namespace ShareViewModel
         public int ProductId { get; set; }
         public string Name { get; set; }
 
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         public int Quantity { get; set; }
 
@@ -23,7 +23,9 @@ namespace ShareViewModel
 
         public string GateWay { get; set; }
 
-        public List<string> Image { get; set; }
+        public IList<string> Images { get; set; }
+
+        public IList<CommentingVm> Commentings { get; set; }
         public int BrandID { get; set; }
         
     }
