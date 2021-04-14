@@ -27,7 +27,7 @@ namespace EcomerceWebsite_Backend.Controllers
         public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrands()
         {
             return await _applicationDbContext.Brands
-                .Select(x => new BrandVm { BrandId = x.BrandID })
+                .Select(x => new BrandVm { BrandId = x.BrandID,Name=x.Name })
                 .ToListAsync();
         }
 
