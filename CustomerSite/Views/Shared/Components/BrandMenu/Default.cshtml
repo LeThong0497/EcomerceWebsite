@@ -1,0 +1,8 @@
+﻿@model IList<ShareViewModel.BrandVm>
+
+@foreach (var brand in Model)
+{
+    <a class="dropdown-item" href="@Url.Action("GetProductByBrand","Product",new { id=brand.BrandId})">Laptop @brand.Name</a>
+    <div class="divider"></div>    
+}
+
