@@ -65,7 +65,7 @@ namespace CustomerSite
                    if (httpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application"))
                    {
                        var identityCookieValue = httpContext.Request.Cookies[".AspNetCore.Identity.Application"];
-                       cookieContainer.Add(new Uri("https://localhost:44325/"), new Cookie(".AspNetCore.Identity.Application", identityCookieValue));
+                       cookieContainer.Add(new Uri("https://localhost:44336/"), new Cookie(".AspNetCore.Identity.Application", identityCookieValue));
                    }
                    return new HttpClientHandler()
                    {
@@ -74,6 +74,11 @@ namespace CustomerSite
                });
 
             services.AddTransient<IProductClient, ProductClient>();
+
+            services.AddTransient<IBrandClient, BrandClient>();
+
+            services.AddTransient<ICommentingClient, CommentingClient>();
+
 
             services.AddControllersWithViews();
         }
@@ -103,7 +108,7 @@ namespace CustomerSite
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Product}/{action=index}/{id?}");
             });
         }
     }
