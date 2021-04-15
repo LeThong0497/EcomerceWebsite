@@ -1,7 +1,5 @@
 ﻿using ShareViewModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,7 +14,7 @@ namespace CustomerSite.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IList<ProductVm>> GetProduct()
+        public async Task<IList<ProductVm>> GetProducts()
         {
             var client = _httpClientFactory.CreateClient("local");
             var response = await client.GetAsync("/api/Products");
@@ -27,9 +25,17 @@ namespace CustomerSite.Services
         public async Task<IList<ProductVm>> GetProductsByBrand(int id)
         {
             var client = _httpClientFactory.CreateClient("local");
-            var response = await client.GetAsync("/api/Products/{id}");
+            var response = await client.GetAsync($"/api/Products/{id}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
+        }
+
+        public async Task<ProductVm> GetProduct(int id)
+        {
+            var client = _httpClientFactory.CreateClient("local");
+            var response = await client.GetAsync($"/api/Products/Product/{id}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsAsync<ProductVm>();
         }
     }
 }
