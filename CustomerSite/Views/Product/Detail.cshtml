@@ -1,0 +1,97 @@
+﻿@model ShareViewModel.ProductVm
+
+@{
+    Layout = "_Layout";
+}
+
+
+@{
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-5">
+                <img id="ProductImage" src="@Model.Images[0]" alt="Card image cap" height=450 width="450">
+                <div style="margin-top:8px;" class="container">
+                    <div class="row">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <div class="col-md-2">
+                                <img class="thumbnail" src="@Model.Images[i]" onmouseover="SetImage('@Model.Images[i]');" alt="Card image cap" height=75 width="75">
+                            </div>
+                            <span>&nbsp;&nbsp;</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5">
+                <p style="font-size:20px;">Laptop @Model.Name (@Model.Screen/@Model.CPU/@Model.HardDrive/@Model.Card)</p>
+                <hr style="width:100%;text-align:left;margin-left:0">
+                <p style="font-size:20px;color:#0f4cbb">Chỉ còn @Model.Quantity sản phẩm</p>
+                <h3 style="color:red">@string.Format("{0:#,##}", Model.Price)<strong> VNĐ</strong></h3>
+                <label>
+                    @if (@Model.Commentings.Count() > 0)
+                    {
+                        @for (int star = 0; star < Math.Round(Model.Commentings.Select(x => x.star).ToList().Average()); star++)
+                        {
+                            <i style="color:yellow;" class="fas fa-star"></i>
+                        }
+                        @for (int star = 0; star < (5 - Math.Round(Model.Commentings.Select(x => x.star).ToList().Average())); star++)
+                        {
+                            <i class="far fa-star"></i>
+                        }
+                    }
+                    <p style="font-size:large;color:#1f18bb">( @Model.Commentings.Count() đánh giá)</p>
+                </label>
+                <p>- CPU : @Model.CPU</p>
+                <p>- Đồ họa : @Model.Card</p>
+                <p>- Lưu trữ : @Model.HardDrive</p>
+                <p>- Màn hình: @Model.Screen</p>
+                <p>- Khối lượng : @Model.Size</p>
+                <p>- Cổng kết nối : @Model.GateWay</p>
+            </div>
+        </div>
+    </div>
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <div class="container">
+        <h4 style="color:#0f4cbb">Đánh giá sản phẩm</h4>
+        @if (@Model.Commentings.Count() > 0)
+        {
+            @foreach (var comment in Model.Commentings)
+            {
+                <hr style="width:100%;text-align:left;margin-left:0">
+                <h6>@comment.userName</h6>
+                <label>
+                    @for (int star = 0; star < comment.star; star++)
+                    {
+                        <i style="color:yellow;" class="fas fa-star"></i>
+                    }
+                    @for (int star = 0; star < (5 - comment.star); star++)
+                    {
+                        <i class="far fa-star"></i>
+                    }
+                </label>
+                <p>@comment.content</p>
+                <p>@comment.date.ToString("yyyy/MM/dd")</p>
+            }
+        }
+        <hr style="width:100%;text-align:left;margin-left:0">
+        <h5>Gửi đánh giá của bạn :</h5>
+        @using (Html.BeginForm("PostCommenting", "Commenting", new { @productId = @Model.ProductId, @userName = @User.Identity.Name },FormMethod.Post))
+        {
+            <fieldset class="rate">
+                <input type="radio" id="rating5" name="rating" value="5" /><label class="fas fa-star" for="rating5" title="1 stars"></label>
+                <input type="radio" id="rating4" name="rating" value="4" /><label class="fas fa-star" for="rating4" title="2 stars"></label>
+                <input type="radio" id="rating3" name="rating" value="3" /><label class="fas fa-star" for="rating3" title="3 stars"></label>
+                <input type="radio" id="rating2" name="rating" value="2" /><label class="fas fa-star" for="rating2" title="4 stars"></label>
+                <input type="radio" id="rating1" name="rating" value="1" /><label class="fas fa-star" for="rating1" title="5 star"></label>
+            </fieldset>
+
+            <input class="form-control" type="text" name="content" placeholder="Nhập nội dung đánh giá" />
+            <div class="form-group">
+                <input class="btn btn-danger mt-4" type="submit" value="Gửi dữ liệu" />
+            </div>
+        }        
+    </div>
+}
+    
+

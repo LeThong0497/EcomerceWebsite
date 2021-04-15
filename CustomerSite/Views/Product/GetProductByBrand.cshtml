@@ -1,0 +1,17 @@
+﻿@model IList<ShareViewModel.ProductVm>
+
+@{
+    Layout = "_Layout";
+}
+
+
+@foreach (var product in Model)
+{
+    <div class="card product-item col-md-3">
+        <img class="card-img" src="@product.Images[0]" />
+        <p class="card-text">Laptop @product.Name (@product.Screen/@product.CPU/@product.HardDrive/@product.Card)</p>
+        <p>Quantity :<strong style="color:blue"> @product.Quantity</strong></p>
+        <h5 style="color:red">@string.Format("{0:#,##}", @product.Price)<strong> VNĐ</strong></h5>
+        <a href="@Url.Action("Detail", "Product", new { id = product.ProductId })"><h5 style="color:blue;">Xem Chi Tiết</h5></a>
+    </div>
+}
