@@ -6,14 +6,15 @@
     <title>@ViewData["Title"] - CustomerSite</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <!--Fontawesome-->
-    <link rel="stylesheet" href="./fontawesome-free-5.15.2-web/css/all.css">
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.2-web/css/all.css">
+
 </head>
 <body>
     <!--NavBar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="#"><img src="./images/rstore-icon.png"></a>
+        <a class="navbar-brand" href=""><img style="height:30px" src="~/images/rstore-icon.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,21 +31,11 @@
                         Products
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Laptop Dell</a>
-                        <div class="divider"></div>
-                        <a class="dropdown-item" href="#">Laptop Asus</a>
-                        <div class="divider"></div>
-                        <a class="dropdown-item" href="#">Laptop Acer</a>
-                        <div class="divider"></div>
-                        <a class="dropdown-item" href="#">Laptop Thinkpad</a>
+                        @await Component.InvokeAsync("BrandMenu")
                     </div>
                 </li>
                 <partial name="_LoginPartial" />
-            </ul> 
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-            </div>
+            </ul>          
             <form class="form-inline my-2 my-lg-0">
                 <button class="btn btn-success my-2 my-sm-0" type="submit" id="cart">
                     <i class="fas fa-shopping-cart"></i>Cart
@@ -52,19 +43,21 @@
                 </button>
             </form>
         </div>
+
     </nav>
+   
     <!--Banner-->
     <div class="banner-wrapper">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./images/ban1.webp" class="d-block w-100" alt="...">
+                    <img src="~/images/ban1.webp" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./images/ban2.webp" class="d-block w-100" alt="...">
+                    <img src="~/images/ban2.webp" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./images/ban3.webp" class="d-block w-100" alt="...">
+                    <img src="~/images/ban3.webp" class="d-block w-100" alt="...">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -75,37 +68,13 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
-        </div>       
+        </div>
     </div>
 
     <!--Body-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2 pt-4">
-                <h5>Filter By Price</h5>
-                <hr>
-                <form>
-                    <div class="form-group">
-                        <label for="min-price-txt">Min price</label>
-                        <input type="number" class="form-control" id="min-price-txt" placeholder="Enter min price">
-                    </div>
-                    <div class="form-group">
-                        <label for="max-price-txt">Max price</label>
-                        <input type="number" class="form-control" id="max-price-txt" placeholder="Enter max price">
-                    </div>
-                    <Button class="btn btn-primary" type="submit" id="filter-btn">Filter</Button>
-                </form>
-            </div>
-             <div class="container">                
-                 <main role="main" class="col-md-12">
-                     <div class="row">
-                         @await Component.InvokeAsync("ProductMenu")
-                         @RenderBody()
-                     </div>
-                 </main>               
-             </div>          
-        </div>
-    </div>   
+    <div>
+        @RenderBody()
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
