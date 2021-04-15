@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShareViewModel;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EcomerceWebsite_Backend.Models
@@ -13,5 +14,6 @@ namespace EcomerceWebsite_Backend.Models
         public int ProductID { get; set; }
         public string UserName { get; set; }
         public virtual Product Product { get; set; }
+
     }
 }
