@@ -11,14 +11,14 @@ namespace CustomerSite.ViewComponents
     {
         private readonly IProductClient _productClient;
 
-        public ProductMenuViewComponent(IProductClient brandApiClient)
+        public ProductMenuViewComponent(IProductClient productClient)
         {
-            _productClient = brandApiClient;
+            _productClient = productClient;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var Products = await _productClient.GetProduct();
+            var Products = await _productClient.GetProducts();
 
             return View(Products);
         }
