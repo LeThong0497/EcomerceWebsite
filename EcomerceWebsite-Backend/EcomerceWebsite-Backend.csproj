@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <ProjectReference Include="..\ShareViewModel\ShareViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShareViewModel\ShareViewModel.csproj" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 </Project>
