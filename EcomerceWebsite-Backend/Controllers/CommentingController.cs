@@ -20,7 +20,7 @@ namespace EcomerceWebsite_Backend.Controllers
         }
 
          [HttpPost]
-         [AllowAnonymous]
+         [Authorize]
         public async Task<ActionResult> PostCommenting (CommentingVm commentingVm)
         {
             var comment = new Comment();
