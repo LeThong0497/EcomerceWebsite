@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using EcommerceWebsite.CustomerSite.Services;
 using Newtonsoft.Json;
 using ShareViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +9,16 @@ namespace CustomerSite.Services
 {
     public class CommentingClient : ICommentingClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IRequest _request;
 
-        public CommentingClient(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public CommentingClient(IRequest request)
         {
-            _httpClientFactory = httpClientFactory;
+            _request = request;
         }
 
         public async Task<HttpResponseMessage> PostCommenting(CommentingVm commentingVm)
         {
-            var client = _httpClientFactory.CreateClient("local");
+            var client = _request.SendAccessToken().Result;
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(commentingVm),
                Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/api/Commenting",httpContent);

@@ -41,7 +41,9 @@ namespace EcomerceWebsite_Backend.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://localhost:44333/signin-oidc" },
+                    //RedirectUris = { "https://thongrookie2.azurewebsites.net/signin-oidc" },
+                                        RedirectUris = { "https://localhost:44333/signin-oidc" },
+
 
                     PostLogoutRedirectUris = { "https://localhost:44333/signout-callback-oidc" },
 
@@ -62,9 +64,9 @@ namespace EcomerceWebsite_Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44336/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44336/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44336" },
+                    RedirectUris =           { $"https://thongrookie.azurewebsites.net/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"https://thongrookie.azurewebsites.net/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"https://thongrookie.azurewebsites.net" },
 
                     AllowedScopes = new List<string>
                     {

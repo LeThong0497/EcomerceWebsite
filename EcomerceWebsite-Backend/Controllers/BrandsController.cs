@@ -83,7 +83,8 @@ namespace EcomerceWebsite_Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+       // [Authorize(Roles = "admin")]
+       [AllowAnonymous]
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brand = await _applicationDbContext.Brands.FindAsync(id);

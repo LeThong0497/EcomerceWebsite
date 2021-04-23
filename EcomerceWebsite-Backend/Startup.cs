@@ -127,6 +127,13 @@ namespace EcomerceWebsite_Backend
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rookie Shop API V1");
             });
 
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -48,6 +48,7 @@
                 <p>- Màn hình: @Model.Screen</p>
                 <p>- Khối lượng : @Model.Size</p>
                 <p>- Cổng kết nối : @Model.GateWay</p>
+                <button class="btn btn-success">Thêm vào giỏ hàng</button>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
         }
         <hr style="width:100%;text-align:left;margin-left:0">
         <h5>Gửi đánh giá của bạn :</h5>
-        @using (Html.BeginForm("PostCommenting", "Commenting", new { @productId = @Model.ProductId, @userName = @User.Identity.Name },FormMethod.Post))
+        @using (Html.BeginForm("PostCommenting", "Commenting", new { @productId = @Model.ProductId},FormMethod.Post))
         {
             <fieldset class="rate">
                 <input type="radio" id="rating5" name="rating" value="5" /><label class="fas fa-star" for="rating5" title="1 stars"></label>

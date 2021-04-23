@@ -21,14 +21,17 @@ namespace CustomerSite.Controllers
             _commentingClient = commenting;
             _configuration = configuration;
         }
-        public async Task<ActionResult> PostCommenting(IFormCollection f,int productId,string userName)
+        public async Task<ActionResult> PostCommenting(IFormCollection f,int productId)
         {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction(actionName: "SignIn", controllerName: "Account");
+
             var CommentingVm = new CommentingVm();
             CommentingVm.star = Convert.ToInt32(f["rating"]);
             CommentingVm.date = DateTime.Today;
             CommentingVm.content = f["content"];
             CommentingVm.productId = Convert.ToInt32(productId);
-            CommentingVm.userName = userName;
+            CommentingVm.userName =@User.Identity.Name;
             await _commentingClient.PostCommenting(CommentingVm);
 
             string referer = Request.Headers["Referer"].ToString();
