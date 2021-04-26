@@ -1,15 +1,21 @@
-import React, { useState,useEffect} from 'react';
-import 
-{ Table,
-  button 
+import React, { useState, useEffect } from 'react';
+import {
+Table,
+button,
 } from 'reactstrap';
-import brandService from '../../Service/brandService.js'
+import {
+  Link,
+  
+  useHistory
+} from 'react-router-dom'
+import brandService from '../../Service/brandService.js';
 
 
 
 
 const ListBrand = () => {
   const [data, setData] = useState([]);
+  const history = useHistory()
   useEffect(() => {
     fetchCategory();
   }, []);
@@ -20,9 +26,15 @@ const ListBrand = () => {
     });
   };
 
-  const  deleteBrand = (id)=>{
+  const deleteBrand = (id) => {
     brandService.deleteBrand(id);
-    window.location.reload();
+    setTimeout(() => {
+      history.go(0);
+    }, 1000);
+  };
+
+  const edit = (item) => {
+    <Link to={"/brand:item"}></Link>
   };
   return (
     <Table>
@@ -31,24 +43,23 @@ const ListBrand = () => {
           <th>STT</th>
           <th>Id</th>
           <th>Name</th>
-          <th><a className='btn btn-success' href=''>Create</a></th>
+          <th><Link to={"/brand"} className='btn btn-success mr-2'>Create</Link></th>
         </tr>
       </thead>
       <tbody>
-        {data?.map(function (item,i) {
+        {data?.map(function (item, i) {
           return (
-            <tr>
-              <th scope="row">{i+1}</th>
-              <td>{item.brandId}</td>       
+            <tr key={item.brandId}>
+              <th scope="row">{i + 1}</th>
+              <td>{item.brandId}</td>
               <td>{item.name}</td>
               <th>
-                <a className='btn btn-primary mr-2' href=''>Edit</a>
-                <button className='btn btn-danger mr-2' onClick={()=>{deleteBrand(item.brandId);console.log("hello")}}>Delete</button>
-
+                <Link to={"/brand/"+item.brandId} className='btn btn-primary mr-2'>Edit</Link>
+                <button className='btn btn-danger mr-2' onClick={() => { deleteBrand(item.brandId) }}>Delete</button>
               </th>
-           </tr>
+            </tr>
           )
-        })}             
+        })}
       </tbody>
     </Table>
   );
