@@ -52,7 +52,8 @@ namespace EcomerceWebsite_Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+       // [Authorize(Roles = "admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutBrand(int id, BrandCreateRequest brandCreateRequest)
         {
             var _brand = await _applicationDbContext.Brands.FindAsync(id);
@@ -69,7 +70,8 @@ namespace EcomerceWebsite_Backend.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+       // [Authorize(Roles = "admin")]
+           [AllowAnonymous]
         public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {
             var _brand = new Brand
