@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import brandService from '../../Service/brandService.js';
 import history from '../../Helpers/history';
 
-const BrandForm = ({ match }) => {
+const BrandSubmitForm = ({ match }) => {
   const [brandId, setBrandId] = useState(match.params.id);
   const [brand, setBrand] = useState({});
 
@@ -21,6 +21,7 @@ const BrandForm = ({ match }) => {
         let isCreate = brandId === undefined ? true : false;
         if (isCreate) {
           await brandService.create(values);
+          console.log(values);
           history.goBack();
         } else {
           await brandService.edit(brandId, values);
@@ -45,7 +46,7 @@ const BrandForm = ({ match }) => {
   }, [match.params.id]);
 
   const fetchBrand = async (id) => {
-    setBrand(await (await brandService.get(id)).data);
+    setBrand(await (await brandService.getBrand(id)).data);
   };
 
   return (
@@ -63,4 +64,4 @@ const BrandForm = ({ match }) => {
   );
 };
 
-export default withRouter(BrandForm);
+export default withRouter(BrandSubmitForm);
