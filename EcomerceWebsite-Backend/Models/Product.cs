@@ -17,7 +17,6 @@ namespace EcomerceWebsite_Backend.Models
         [Required]
         public decimal Price { get; set; }
 
-        [Required]
         public int Quantity { get; set; }
 
         [StringLength(80)]
