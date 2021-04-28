@@ -12,7 +12,7 @@
                 <img id="ProductImage" src="@Model.Images[0]" alt="Card image cap" height=450 width="450">
                 <div style="margin-top:8px;" class="container">
                     <div class="row">
-                        @for (int i = 0; i < 5; i++)
+                        @for (int i = 0; i < Model.Images.Count; i++)
                         {
                             <div class="col-md-2">
                                 <img class="thumbnail" src="@Model.Images[i]" onmouseover="SetImage('@Model.Images[i]');" alt="Card image cap" height=75 width="75">

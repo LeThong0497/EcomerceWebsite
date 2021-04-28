@@ -10,7 +10,7 @@
         @foreach (var product in Model)
         {
             <div class="card product-item col-md-3">
-                <img class="card-img" src="@product.Images[0]" />
+                <img class="card-img" src=@(@product.Images.Count==0?"":@product.Images[0]) />
                 <p class="card-text">Laptop @product.Name (@product.Screen/@product.CPU/@product.HardDrive/@product.Card)</p>
                 <p>Quantity :<strong style="color:blue"> @product.Quantity</strong></p>
                 @*<p>Có @product.Commentings.Count() đánh giá</p>*@
