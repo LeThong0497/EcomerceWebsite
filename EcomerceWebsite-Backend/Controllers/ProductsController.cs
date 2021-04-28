@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShareViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -145,6 +144,89 @@ namespace EcomerceWebsite_Backend.Controllers
                                                                             }).ToList();
 
             return prodVM;
+        }
+
+        [HttpPut("{id}")]
+        // [Authorize(Roles = "admin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
+        {
+            var _product = await _applicationDbContext.Products.FindAsync(id);
+
+            if (_product == null)
+            {
+                return NotFound();
+            }
+
+            _product.Name = productCreateRequest.Name;
+            _product.Card = productCreateRequest.Card;
+            _product.CPU = productCreateRequest.CPU;
+            _product.GateWay = productCreateRequest.GateWay;
+            _product.Screen = productCreateRequest.Screen;
+            _product.Size = productCreateRequest.Size;
+            _product.HardDrive = productCreateRequest.HardDrive;
+            _product.Price = productCreateRequest.Price;
+            _product.BrandID = productCreateRequest.BrandID;
+
+            await _applicationDbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        // [Authorize(Roles = "admin")]
+        [AllowAnonymous]
+        public async Task<ActionResult> PostProduct(ProductCreateRequest productCreateRequest)
+        {
+            var _product = new Product
+            {
+                Name = productCreateRequest.Name,
+                Card = productCreateRequest.Card,
+                CPU = productCreateRequest.CPU,
+                GateWay = productCreateRequest.GateWay,
+                Screen = productCreateRequest.Screen,
+                Size = productCreateRequest.Size,
+                HardDrive = productCreateRequest.HardDrive,
+                Price = productCreateRequest.Price,
+                BrandID = productCreateRequest.BrandID
+             };
+
+            _applicationDbContext.Products.Add(_product);
+            await _applicationDbContext.SaveChangesAsync();
+
+          var  _prWithBigestId= _applicationDbContext.Products.OrderByDescending(s => s.ProductID).FirstOrDefault();
+
+            var list = new List<Image>();
+            for(int i=0;i<productCreateRequest.Images.Count();i++)
+            {
+                var image = new Image
+                {
+                    ImageName = productCreateRequest.Images[i],
+                    ProductID = _prWithBigestId.ProductID
+                };
+                list.Add(image);
+            }    
+
+            _applicationDbContext.Images.AddRange(list);
+            await _applicationDbContext.SaveChangesAsync();
+            return StatusCode(200);
+        }
+
+        [HttpDelete("{id}")]
+        // [Authorize(Roles = "admin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var pro = await _applicationDbContext.Products.FindAsync(id);
+            if (pro == null)
+            {
+                return NotFound();
+            }
+
+            _applicationDbContext.Products.Remove(pro);
+            await _applicationDbContext.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
