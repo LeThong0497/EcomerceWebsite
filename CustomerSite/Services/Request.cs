@@ -21,7 +21,7 @@ namespace EcommerceWebsite.CustomerSite.Services
 
         public async Task<HttpClient> SendAccessToken()
         {
-            var client = _httpClientFactory.CreateClient("local");
+            var client = _httpClientFactory.CreateClient("UrlBackend");
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
             client.SetBearerToken(accessToken);
             return client;

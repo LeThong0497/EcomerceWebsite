@@ -1,4 +1,5 @@
 ﻿using EcommerceWebsite.CustomerSite.Services;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ShareViewModel;
 using System.Net.Http;

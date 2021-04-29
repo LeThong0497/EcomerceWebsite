@@ -33,8 +33,7 @@ namespace CustomerSite
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                   // options.Authority = "https://thongrookie.azurewebsites.net/";
-                    options.Authority = "https://localhost:44336/";
+                    options.Authority = Configuration.GetValue<string>("UrlBackend");
                 
                     options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -57,10 +56,9 @@ namespace CustomerSite
                 });
             services.AddHttpContextAccessor();
 
-            services.AddHttpClient("local", (configureClient) =>
+            services.AddHttpClient("UrlBackend", (configureClient) =>
             {
-               // configureClient.BaseAddress = new Uri("https://thongrookie.azurewebsites.net/");
-                configureClient.BaseAddress = new Uri("https://localhost:44336/");
+                configureClient.BaseAddress = new Uri(Configuration.GetValue<string>("UrlBackend"));
             })
                .ConfigurePrimaryHttpMessageHandler((serviceProvider) =>
                {
@@ -69,8 +67,7 @@ namespace CustomerSite
                    if (httpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application"))
                    {
                        var identityCookieValue = httpContext.Request.Cookies[".AspNetCore.Identity.Application"];
-                       //cookieContainer.Add(new Uri("https://thongrookie.azurewebsites.net/"), new Cookie(".AspNetCore.Identity.Application", identityCookieValue));
-                       cookieContainer.Add(new Uri("https://localhost:44336/"), new Cookie(".AspNetCore.Identity.Application", identityCookieValue));
+                       cookieContainer.Add(new Uri(Configuration.GetValue<string>("UrlBackend")), new Cookie(".AspNetCore.Identity.Application", identityCookieValue));
                    }
                    return new HttpClientHandler()
                    {
