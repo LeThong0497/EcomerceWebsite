@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace EcomerceWebsite_Backend.IdentityServer
 {
-    public static class IdentityServerConfig
+    public class IdentityServerConfig
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
             new List<IdentityResource>
@@ -19,8 +20,8 @@ namespace EcomerceWebsite_Backend.IdentityServer
                   new ApiScope("ecommerce.customer.api", "Rookie Shop API")
              };
 
-        public static IEnumerable<Client> Clients =>
-            new List<Client>
+        public static IEnumerable<Client> GetClients(IConfiguration configuration) {
+          return  new List<Client>
             {
                 // machine to machine client
                 new Client
@@ -41,11 +42,10 @@ namespace EcomerceWebsite_Backend.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    //RedirectUris = { "https://thongrookie2.azurewebsites.net/signin-oidc" },
-                                        RedirectUris = { "https://localhost:44333/signin-oidc" },
+                    RedirectUris = {configuration["IdentityDbConfig:MVC:RedirectUris"]},
 
 
-                    PostLogoutRedirectUris = { "https://localhost:44333/signout-callback-oidc" },
+                    PostLogoutRedirectUris = {configuration["IdentityDbConfig:MVC:PostLogoutRedirectUris"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -64,9 +64,9 @@ namespace EcomerceWebsite_Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://thongrookie.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://thongrookie.azurewebsites.net/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://thongrookie.azurewebsites.net" },
+                    RedirectUris =           {configuration["IdentityDbConfig:Swagger:RedirectUris"] },
+                    PostLogoutRedirectUris = {configuration["IdentityDbConfig:Swagger:PostLogoutRedirectUris"] },
+                    AllowedCorsOrigins =     { configuration["IdentityDbConfig:Swagger:AllowedCorsOrigins"] },
 
                     AllowedScopes = new List<string>
                     {
@@ -76,5 +76,7 @@ namespace EcomerceWebsite_Backend.IdentityServer
                     }
                 },
             };
+        }
+            
     }
 }
