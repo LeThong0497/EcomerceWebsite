@@ -15,7 +15,6 @@ const ListProduct = () => {
       setProducts(data);
     });
   };
-
   //delete and update view
   const handleDelete = (id) => {
     let result = window.confirm("Delete this product?");
@@ -42,8 +41,8 @@ const ListProduct = () => {
             <th>Price</th>
             <th>Image</th>
             <th className="text-right">
-              <Link to={`/updateproduct/`} >
-                <Button //onClick={() => onEdit && onEdit(item)}
+              <Link to={`/updateProduct/`} >
+                <Button
                   className="btn btn-success"
                 >
                   Create
@@ -56,7 +55,7 @@ const ListProduct = () => {
           {products.map(function (item, i) {
             return (
               <tr>
-                <th scope="row">{i}</th>
+                <th scope="row">{i+1}</th>
                 <td>{item.name}</td>
                 <td>{item.cpu}</td>
                 <td>{item.screen}</td>
@@ -69,8 +68,8 @@ const ListProduct = () => {
                     <img src={item.images[0]} style={{height:"100px"}} alt="product-img" />
                 </td>
                 <td>
-                  <Link to={`/updateproduct/${item.productId}`} >
-                    <Button //onClick={() => onEdit && onEdit(item)}
+                  <Link to={`/updateProduct/${item.productId}`} >
+                    <Button
                       className="btn btn-info"
                     >
                       Edit
