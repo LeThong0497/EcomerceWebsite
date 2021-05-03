@@ -33,9 +33,6 @@ const ListBrand = () => {
     }, 1000);
   };
 
-  const edit = (item) => {
-    <Link to={"/brand:item"}></Link>
-  };
   return (
     <Table>
       <thead>
@@ -54,7 +51,7 @@ const ListBrand = () => {
               <td>{item.brandId}</td>
               <td>{item.name}</td>
               <th>
-                <Link to={"/brand/"+item.brandId} className='btn btn-primary mr-2'>Edit</Link>
+                <Link to={"/updateBrand/"+item.brandId} className='btn btn-primary mr-2'>Edit</Link>
                 <button className='btn btn-danger mr-2' onClick={() => { deleteBrand(item.brandId) }}>Delete</button>
               </th>
             </tr>

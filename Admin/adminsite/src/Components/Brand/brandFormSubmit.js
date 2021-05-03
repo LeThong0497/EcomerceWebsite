@@ -51,15 +51,19 @@ const BrandSubmitForm = ({ match }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <div className="form-group">
       <label htmlFor="name">Brand Name :</label>
       <input
         id="name"
         name="name"
+        className="form-control"
         type="text"
         onChange={formik.handleChange}
         value={formik.values.name}
       />
+       </div>
         <button type="submit">Submit</button>
+       
     </form>
   );
 };
