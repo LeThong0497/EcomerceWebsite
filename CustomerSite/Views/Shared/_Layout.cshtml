@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <!--Fontawesome-->
     <link rel="stylesheet" href="~/fontawesome-free-5.15.2-web/css/all.css">
-
+    
 </head>
 <body>
     <!--NavBar-->
@@ -35,17 +35,17 @@
                     </div>
                 </li>
                 <partial name="_LoginPartial" />
-            </ul>          
+            </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-success my-2 my-sm-0" type="submit" id="cart">
+                <a class="btn btn-success my-2 my-sm-0" id="cart" asp-controller="Cart" asp-action="Index">
                     <i class="fas fa-shopping-cart"></i>Cart
                     <span id="badge" class="badge badge-secondary"></span>
-                </button>
+                </a>
             </form>
         </div>
 
     </nav>
-   
+
     <!--Banner-->
     <div class="banner-wrapper">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -85,6 +85,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--Cart-->
+    <script src="~/js/cart.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            updateCart();
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
