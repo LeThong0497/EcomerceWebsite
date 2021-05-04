@@ -68,7 +68,7 @@ namespace EcomerceWebsite_Backend
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin", builder => builder
-                    .WithOrigins("http://localhost:3000")
+                    .WithOrigins(Configuration["UrlAdmin"])
                     .AllowCredentials()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
