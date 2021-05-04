@@ -75,6 +75,26 @@ namespace EcomerceWebsite_Backend.IdentityServer
                         "ecommerce.customer.api"
                     }
                 },
+
+                new Client
+                  {
+                    ClientName = "react_admin",
+                    ClientId = "react_admin",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                         "ecommerce.customer.api"
+                    },
+
+                    AccessTokenLifetime = 86400,
+                    AllowOfflineAccess = true,
+                },
+
             };
         }
             
