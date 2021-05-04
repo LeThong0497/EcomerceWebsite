@@ -8,3 +8,5 @@ export const LIST_USER = '/user';
 export const LIST_BRAND = '/brand';
 export const UPDATE_BRAND = '/updateBrand/:id';
 export const CREATE_BRAND = '/updateBrand/';
+
+export const LOGIN = '/';

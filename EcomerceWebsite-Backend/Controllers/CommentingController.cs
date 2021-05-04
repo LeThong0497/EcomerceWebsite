@@ -30,7 +30,7 @@ namespace EcomerceWebsite_Backend.Controllers
             comment.ProductID = commentingVm.productId;
             comment.UserName = commentingVm.userName;
             _applicationDbContext.Comments.Add(comment);
-           await _applicationDbContext.SaveChangesAsync();
+            await _applicationDbContext.SaveChangesAsync();
 
              return StatusCode(200);
         }
