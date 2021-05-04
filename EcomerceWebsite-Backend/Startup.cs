@@ -65,6 +65,15 @@ namespace EcomerceWebsite_Backend
                 });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin", builder => builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddControllersWithViews();
 
             services.AddSwaggerGen(c =>
@@ -113,6 +122,8 @@ namespace EcomerceWebsite_Backend
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseCors("AllowAnyOrigin");
+
             app.UseRouting();
 
             app.UseIdentityServer();
@@ -127,12 +138,6 @@ namespace EcomerceWebsite_Backend
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rookie Shop API V1");
             });
 
-            app.UseCors(builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyHeader();
-                builder.AllowAnyMethod();
-            });
 
             app.UseEndpoints(endpoints =>
             {
