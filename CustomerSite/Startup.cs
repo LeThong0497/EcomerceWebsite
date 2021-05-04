@@ -59,6 +59,7 @@ namespace CustomerSite
             services.AddHttpClient("UrlBackend", (configureClient) =>
             {
                 configureClient.BaseAddress = new Uri(Configuration.GetValue<string>("UrlBackend"));
+
             })
                .ConfigurePrimaryHttpMessageHandler((serviceProvider) =>
                {
